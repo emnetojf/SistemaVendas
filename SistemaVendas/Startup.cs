@@ -33,6 +33,11 @@ namespace SistemaVendas
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            //Configura serviço host da aplicação para uso de session 
+            services.AddMvc();
+            services.AddSession();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -52,11 +57,13 @@ namespace SistemaVendas
             app.UseStaticFiles();
             app.UseCookiePolicy();
 
+            app.UseSession(); //Configura serviço host da aplicação para uso de session 
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=Home}/{action=Login}/{id?}"); // muda route para Login
             });
         }
     }
