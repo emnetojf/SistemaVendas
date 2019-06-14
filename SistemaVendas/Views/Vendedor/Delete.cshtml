@@ -1,11 +1,11 @@
 ﻿
 @{
-    ViewData["Title"] = "Excluir Cliente";
+    ViewData["Title"] = "Excluir Vendedor";
 }
 
 <h2>@ViewData["Title"]</h2>
 
-<h3>Deseja excluir o Cliente?</h3>
+<h3>Deseja excluir o Vendedor?</h3>
 
 <button type="button" class="btn btn-default btn-danger" onclick="Nao()">Não</button>
 <button type="button" class="btn btn-default btn-success" onclick="Sim()">Sim</button>
@@ -13,12 +13,12 @@
 <script>
     function Sim()
     {
-       window.location.href = "../../Cliente/DeleteCliente/" + @ViewData["IdExcluir"].ToString();
+       window.location.href = "../../Vendedor/DeleteVendedor/" + @ViewData["IdExcluir"].ToString();
     }
 
     function Nao()
     {
-        window.location.href = "../../Cliente/Index";
+        window.location.href = "../../Vendedor/Index";
     }
         
 </script>

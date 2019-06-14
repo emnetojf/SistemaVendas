@@ -1,7 +1,7 @@
-﻿@model IEnumerable<SistemaVendas.Models.ClienteModel>
+﻿@model IEnumerable<SistemaVendas.Models.VendedorModel>
 
 @{
-    ViewData["Title"] = "Lista de Clientes";
+    ViewData["Title"] = "Lista de Vendedores";
 }
 
 <h3>@ViewData["Title"]</h3>
@@ -11,21 +11,17 @@
     <thead>
         <tr>
             <th>Id</th>
-            <th>CPF</th>
             <th>Nome</th>
             <th>Email</th>            
         </tr>
     </thead>
     <tbody>
         @{
-            foreach (var item in (List<ClienteModel>) ViewBag.ListaClientes)
+            foreach (var item in (List<VendedorModel>) ViewBag.ListaVendedors)
             {
                 <tr>
                     <td>
                         @Html.DisplayFor(modelItem => item.Id)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.CPF)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Nome)
@@ -49,21 +45,22 @@
     <a asp-action="../Home/Menu">Retorna Menu</a>
 </div>
 
+
 <script>
     function Create()
     {
-        window.location.href = "../Cliente/Create"
+        window.location.href = "../Vendedor/Create"
     }
 
     
     function Edit(id)
     {
-        window.location.href = "../Cliente/Create/" + id
+        window.location.href = "../Vendedor/Create/" + id
     }
 
     function Delete(id)
     {
-        window.location.href = "../Cliente/Delete/" + id
+        window.location.href = "../Vendedor/Delete/" + id
     }
     
 </script>

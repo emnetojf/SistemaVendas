@@ -11,4 +11,19 @@
     <PackageReference Include="MySql.Data" Version="8.0.16" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="Views\Vendedor\Create.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Vendedor\Delete.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Vendedor\DeleteVendedor.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Vendedor\Index.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+  </ItemGroup>
+
 </Project>

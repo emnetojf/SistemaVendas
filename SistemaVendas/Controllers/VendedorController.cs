@@ -3,11 +3,11 @@ using SistemaVendas.Models;
 
 namespace SistemaVendas.Controllers
 {
-    public class ClienteController : Controller
+    public class VendedorController : Controller
     {
         public IActionResult Index()
         {
-            ViewBag.ListaClientes = new ClienteModel().ListaClientes(); 
+            ViewBag.ListaVendedors = new VendedorModel().ListaVendedors();
             return View();
         }
 
@@ -16,17 +16,17 @@ namespace SistemaVendas.Controllers
         {
             if (id != null)
             {
-                ViewBag.Cliente = new ClienteModel().ListaCliente(id);              
+                ViewBag.Vendedor = new VendedorModel().ListaVendedor(id);
             }
             return View();
         }
 
         [HttpPost]
-        public IActionResult Create(ClienteModel Cliente)
+        public IActionResult Create(VendedorModel Vendedor)
         {
             if (!ModelState.IsValid)
             {
-                Cliente.Gravar();
+                Vendedor.Gravar();
                 return RedirectToAction("Index");
             }
 
@@ -40,9 +40,9 @@ namespace SistemaVendas.Controllers
         }
 
 
-        public IActionResult DeleteCliente(int id)
+        public IActionResult DeleteVendedor(int id)
         {
-            new ClienteModel().Delete(id);
+            new VendedorModel().Delete(id);
             return View();
         }
 
