@@ -85,13 +85,14 @@
     function CarregaUsuarioLogado()
     {
         var nome = '@HttpContextAccessor.HttpContext.Session.GetString("nomelogado")'
+        var origin =  window.location.origin
 
         // Usuario logado
         if (nome != "")
         {
             var divnome = document.getElementById("nomelogado")
 
-            divnome.innerHTML = "Olá " + nome + " <a href='../Home/Login/0'>(Sair)</a>"; 
+            divnome.innerHTML = "Olá " + nome + " <a href='" + origin + "/Home/Login/0'>(Sair)</a>"; 
             divnome.style = "color:#ffffff; padding-top:15px;";
         }
         else

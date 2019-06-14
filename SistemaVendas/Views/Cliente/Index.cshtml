@@ -1,0 +1,65 @@
+﻿@model IEnumerable<SistemaVendas.Models.ClienteModel>
+
+@{
+    ViewData["Title"] = "Lista de Clientes";
+}
+
+<h3>@ViewData["Title"]</h3>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>CPF</th>
+            <th>Nome</th>
+            <th>Email</th>            
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            foreach (var item in (List<ClienteModel>) ViewBag.ListaClientes)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CPF)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Nome)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Email)
+                    </td>                
+                    <td>
+                        <button class="btn btn-warning btn-primary" type="button"  onclick="Edit(@item.Id)">Editar</button>
+                        <button class="btn btn-danger btn-primary" type="button"  onclick="Delete(@item.Id)">Excluir</button>
+                    </td>
+
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+<button class="btn btn-default btn-primary" type="button" onclick="Create()">Cadastrar</button>
+
+<script>
+    function Create()
+    {
+        window.location.href = "../Cliente/Create"
+    }
+
+    
+    function Edit(id)
+    {
+        window.location.href = "../Cliente/Create/" + id
+    }
+
+    function Delete(id)
+    {
+        window.location.href = "../Cliente/Delete/" + id
+    }
+    
+</script>
