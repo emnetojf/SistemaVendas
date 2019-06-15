@@ -1,8 +1,7 @@
-﻿using System;
+﻿using SistemaVendas.Uteis;
 using System.Collections.Generic;
-using System.Data;
-using SistemaVendas.Uteis;
 using System.ComponentModel.DataAnnotations;
+using System.Data;
 
 namespace SistemaVendas.Models
 {

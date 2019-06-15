@@ -12,6 +12,18 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Update="Views\Produto\Create.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Produto\Delete.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Produto\DeleteProduto.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Produto\Index.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
     <Content Update="Views\Vendedor\Create.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>

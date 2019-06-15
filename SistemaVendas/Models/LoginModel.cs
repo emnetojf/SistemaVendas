@@ -25,7 +25,7 @@ namespace SistemaVendas.Models
 
         public bool ValidarLogin()
         {
-            string strSQL = $"select id, nome from Vendedor where email = '{Email}' and senha = '{Senha}'";
+            string strSQL = $"select id, nome from vendedor where email = '{Email}' and senha = '{Senha}'";
 
             DAL objdal = new DAL();
             DataTable dt = objdal.RetornaDataTable(strSQL);

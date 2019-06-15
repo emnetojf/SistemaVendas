@@ -1,0 +1,24 @@
+﻿
+@{
+    ViewData["Title"] = "Excluir Produto";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<h3>Deseja excluir o Produto?</h3>
+
+<button type="button" class="btn btn-default btn-danger" onclick="Nao()">Não</button>
+<button type="button" class="btn btn-default btn-success" onclick="Sim()">Sim</button>
+
+<script>
+    function Sim()
+    {
+       window.location.href = "../../Produto/DeleteProduto/" + @ViewData["IdExcluir"].ToString();
+    }
+
+    function Nao()
+    {
+        window.location.href = "../../Produto/Index";
+    }
+        
+</script>

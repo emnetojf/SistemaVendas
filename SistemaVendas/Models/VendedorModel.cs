@@ -23,7 +23,7 @@ namespace SistemaVendas.Models
 
         public List<VendedorModel> ListaVendedors()
         {
-            List<VendedorModel> CliList = new List<VendedorModel>();
+            List<VendedorModel> VendList = new List<VendedorModel>();
             VendedorModel Vendedor;
             DAL objDAL = new DAL();
             string strSQL = "SELECT id, nome, email, senha FROM Vendedor ORDER BY nome asc";
@@ -39,10 +39,10 @@ namespace SistemaVendas.Models
                     Senha = dt.Rows[i]["senha"].ToString(),
                 };
 
-                CliList.Add(Vendedor);
+                VendList.Add(Vendedor);
             }
 
-            return CliList;
+            return VendList;
         }
 
 

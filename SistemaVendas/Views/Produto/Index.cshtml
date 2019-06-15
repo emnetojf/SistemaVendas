@@ -1,0 +1,81 @@
+﻿@model IEnumerable<SistemaVendas.Models.ProdutoModel>
+
+@{
+    ViewData["Title"] = "Lista de Produtos";
+}
+
+<h3>@ViewData["Title"]</h3>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Nome</th>
+            <th>Descrição</th>
+            <th>Preço</th>
+            <th>Quant.</th>
+            <th>Unid.</th>
+            <th>Foto</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            foreach (var item in (List<ProdutoModel>) ViewBag.ListaProdutos)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Nome)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Descricao)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Preco)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Quant)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Unid)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.foto)
+                    </td>
+                    <td>
+                        <button class="btn btn-warning btn-primary" type="button" onclick="Edit(@item.Id)">Editar</button>
+                        <button class="btn btn-danger btn-primary" type="button" onclick="Delete(@item.Id)">Excluir</button>
+                    </td>
+
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+<div>
+    <button class="btn btn-default btn-primary" type="button" onclick="Create()">Cadastrar</button>
+    <a asp-action="../Home/Menu">Retorna Menu</a>
+</div>
+
+<script>
+    function Create()
+    {
+        window.location.href = "../Produto/Create"
+    }
+
+    
+    function Edit(id)
+    {
+        window.location.href = "../Produto/Create/" + id
+    }
+
+    function Delete(id)
+    {
+        window.location.href = "../Produto/Delete/" + id
+    }
+    
+</script>
