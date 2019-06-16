@@ -12,37 +12,78 @@
     <div class="col-md-4">
         <form asp-controller="Produto" asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" value="@try { @ViewBag.Produto.Id } catch {}" />
+            <input type="hidden" asp-for="Id" value="@try { @ViewBag.Produto.Id } catch { }" />
 
             <div class="form-group">
                 <label asp-for="Nome" class="control-label">Nome</label>
-                <input asp-for="Nome" class="form-control" value="@try { @ViewBag.Produto.Nome } catch {}" />
+                <input asp-for="Nome" class="form-control" value="@try { @ViewBag.Produto.Nome } catch { }" />
                 <span asp-validation-for="Nome" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Descricao" class="control-label">Descrição</label>
-                <input asp-for="Descricao" class="form-control" value="@try { @ViewBag.Produto.Descricao} catch {}" />
+                @{
+                    var vDescricao = "";
+
+                    try
+                    {
+                        vDescricao = ViewBag.Produto.Descricao;
+                    }
+                    catch
+                    { }
+
+                }
+                @Html.TextArea("Descricao", vDescricao, new { @class = "form-control" }) 
                 <span asp-validation-for="Descricao" class="text-danger"></span>
             </div>
             
             <div class="form-group">
                 <label asp-for="Preco" class="control-label">Preço</label>
-                <input asp-for="Preco" class="form-control" value="@try { @ViewBag.Produto.Preco} catch {}" />
+                <input asp-for="Preco" class="form-control" value="@try { @ViewBag.Produto.Preco.ToString("F2")} catch { }" />
                 <span asp-validation-for="Preco" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Quant" class="control-label">Quant.</label>
-                <input asp-for="Quant" class="form-control" value="@try { @ViewBag.Produto.Quant} catch {}" />
+                <input asp-for="Quant" class="form-control" value="@try { @ViewBag.Produto.Quant.ToString("F2")} catch { }" />
                 <span asp-validation-for="Quant" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Unid" class="control-label">Unid.</label>
-                <input asp-for="Unid" class="form-control" value="@try { @ViewBag.Produto.Unid} catch {}" />
+                @{ 
+                    var vUnid = "";
+
+                    try
+                    {
+                        vUnid = ViewBag.Produto.Unid;
+                    }
+                    catch
+                    { }
+                }
+            <select asp-for="Unid" class="form-control">
+                @{
+                    if (vUnid != "")
+                    {
+                        <option value="vUnid" selected>@vUnid</option>
+                    }
+                }
+                <option value="CX">CX</option>
+                <option value="G">G</option>
+                <option value="KG">KG</option>
+                <option value="LT">LT</option>                
+                <option value="TON">TON</option>
+                <option value="UN">UN</option>
+            </select>
                 <span asp-validation-for="Unid" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="foto" class="control-label">Foto</label>
-                <input asp-for="foto" class="form-control" value="@try { @ViewBag.Produto.Foto} catch {}" />
+                @try
+                {
+                    <img src="@try { @ViewBag.Produto.foto} catch {}" width="150" height="150" />
+                    
+                }
+                catch
+                { }
+                <input asp-for="foto" class="form-control" value="@try { @ViewBag.Produto.foto} catch {}" />
                 <span asp-validation-for="foto" class="text-danger"></span>
             </div>
 

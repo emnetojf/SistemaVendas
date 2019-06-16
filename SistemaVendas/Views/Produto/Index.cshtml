@@ -16,7 +16,8 @@
             <th>Preço</th>
             <th>Quant.</th>
             <th>Unid.</th>
-            <th>Foto</th>
+            <th>Foto</th>           
+            
         </tr>
     </thead>
     <tbody>
@@ -43,13 +44,12 @@
                         @Html.DisplayFor(modelItem => item.Unid)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.foto)
+                        <img src="@Html.DisplayFor(modelItem => item.foto)" width="150" height="150" />
                     </td>
                     <td>
                         <button class="btn btn-warning btn-primary" type="button" onclick="Edit(@item.Id)">Editar</button>
                         <button class="btn btn-danger btn-primary" type="button" onclick="Delete(@item.Id)">Excluir</button>
                     </td>
-
                 </tr>
             }
         }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Data;
+using System.Globalization; 
 
 namespace SistemaVendas.Models
 {
@@ -17,10 +18,11 @@ namespace SistemaVendas.Models
 
         [Required(ErrorMessage = "Informe preço produto")]
         [DisplayFormat(DataFormatString = "{0:F2}")] // Formato 0.00
-        public decimal Preco { get; set; }
+        public double Preco { get; set; }
 
         [Required(ErrorMessage = "Informe quantidade produto")]
-        public decimal Quant { get; set; }
+        [DisplayFormat(DataFormatString = "{0:F2}")] // Formato 0.00
+        public double Quant { get; set; }
 
         [Required(ErrorMessage = "Informe unidade produto")]
         [StringLength(3, MinimumLength = 1, ErrorMessage = "{0} deve conter no mínimo {2} e no máximo {1}!")]
@@ -44,8 +46,8 @@ namespace SistemaVendas.Models
                     Id = dt.Rows[i]["Id"].ToString(),
                     Nome = dt.Rows[i]["nome"].ToString(),
                     Descricao = dt.Rows[i]["descricao"].ToString(),
-                    Preco = decimal.Parse(dt.Rows[i]["preco"].ToString()),
-                    Quant = decimal.Parse(dt.Rows[i]["quant"].ToString()),
+                    Preco = double.Parse(dt.Rows[i]["preco"].ToString()),
+                    Quant = double.Parse(dt.Rows[i]["quant"].ToString()),
                     Unid = dt.Rows[i]["unidade"].ToString(),
                     foto = dt.Rows[i]["foto"].ToString()
                 };
@@ -69,8 +71,8 @@ namespace SistemaVendas.Models
                 Id = dt.Rows[0]["Id"].ToString(),
                 Nome = dt.Rows[0]["nome"].ToString(),
                 Descricao = dt.Rows[0]["descricao"].ToString(),
-                Preco = decimal.Parse(dt.Rows[0]["preco"].ToString()),
-                Quant = decimal.Parse(dt.Rows[0]["quant"].ToString()),
+                Preco = double.Parse(dt.Rows[0]["preco"].ToString()),
+                Quant = double.Parse(dt.Rows[0]["quant"].ToString()),                
                 Unid = dt.Rows[0]["unidade"].ToString(),
                 foto = dt.Rows[0]["foto"].ToString()
             };
@@ -91,8 +93,8 @@ namespace SistemaVendas.Models
                 strSQL = $"UPDATE Produto  SET " +
                          $"nome = '{Nome}', " +
                          $"descricao ='{Descricao}', " +
-                         $"preco = '{Preco}', " +
-                         $"quant = '{Quant}', " +
+                         $"preco = '{Preco.ToString("F2", CultureInfo.InvariantCulture)}', " +
+                         $"quant = '{Quant.ToString("F2", CultureInfo.InvariantCulture)}', " +
                          $"unidade = '{Unid}', " +
                          $"foto = '{foto}' " +
                          $"WHERE id = '{Id}' ";
@@ -100,7 +102,10 @@ namespace SistemaVendas.Models
             else
             {
                 strSQL = $"INSERT INTO Produto (nome, descricao, preco, quant, unidade, foto) " +
-                         $"values ('{Nome}', '{Descricao}', '{Preco}', '{Quant}', '{Unid}', '{foto}')";
+                         $"values ('{Nome}', '{Descricao}', " +
+                         $"'{Preco.ToString("F2", CultureInfo.InvariantCulture)}', '" +
+                         $"{Quant.ToString("F2", CultureInfo.InvariantCulture)}', " +
+                         $"'{Unid}', '{foto}')";
             }
 
             objDAL.ExecutarComandoSQL(strSQL);
