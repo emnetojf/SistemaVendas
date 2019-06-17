@@ -1,13 +1,10 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using SistemaVendas.Uteis;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Data;
 using System.Globalization;
-using System.Linq;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
-using SistemaVendas.Models;
-using SistemaVendas.Uteis;
 
 namespace SistemaVendas.Models
 {
@@ -71,6 +68,41 @@ namespace SistemaVendas.Models
 
             return VendaList;
         }
+
+
+        // lista Vendas periodo
+        public List<VendaModel> ListaVendasPeriodo(string DataInicio, string DataFim)
+        {
+            List<VendaModel> VendaList = new List<VendaModel>();
+            VendaModel Venda;
+            DAL objDAL = new DAL();
+            string strSQL = "select vendas.id, vendas.data, vendas.total, v.nome as vendedor, c.nome as cliente " +
+                            "from vendas " +
+                            "inner join cliente c on c.id = vendas.Cliente_id " +
+                            "inner join vendedor v on v.id = vendas.Vendedor_id " +
+                            $"where vendas.data >= '{DataInicio}' and vendas.data <= '{DataFim}' " + 
+                            "order by vendas.data, vendas.total ";
+
+            DataTable dt = objDAL.RetornaDataTable(strSQL);
+
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                Venda = new VendaModel
+                {
+                    Id = dt.Rows[i]["Id"].ToString(),
+                    DataVenda = dt.Rows[i]["data"].ToString(),
+                    TotalVend = double.Parse(dt.Rows[i]["total"].ToString()),
+                    VendedorId = dt.Rows[i]["vendedor"].ToString(),
+                    ClienteId = dt.Rows[i]["cliente"].ToString()
+                };
+
+                VendaList.Add(Venda);
+            }
+
+            return VendaList;
+        }
+
+
 
 
 
