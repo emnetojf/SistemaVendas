@@ -1,0 +1,58 @@
+﻿@model IEnumerable<SistemaVendas.Models.VendaModel>
+
+@{
+    ViewData["Title"] = "Lista de Vendas";
+}
+
+<h3>@ViewData["Title"]</h3>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Data Venda</th>
+            <th>Vendedor</th>
+            <th>Cliente</th>
+            <th>Total Venda</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            foreach (var item in (List<VendaModel>) ViewBag.ListaVendas)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DataVenda)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.VendedorId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ClienteId)
+                    </td>
+                    <td>
+                        R$ @Html.DisplayFor(modelItem => item.TotalVend)
+                    </td>                   
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+<div>
+    <button class="btn btn-default btn-primary" type="button" onclick="Create()">Registrar</button>
+    <a asp-action="../Home/Menu">Retorna Menu</a>
+</div>
+
+<script>
+
+    function Create()
+    {
+        window.location.href = "../Venda/Registrar"
+        } 
+
+</script>

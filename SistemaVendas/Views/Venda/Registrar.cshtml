@@ -1,0 +1,152 @@
+﻿@model SistemaVendas.Models.VendaModel
+
+@{
+    ViewData["Title"] = "Registrar de Vendas";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+
+<hr />
+<form asp-controller="Venda" asp-action="Registrar">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" asp-for="Id" value="@try { @ViewBag.Venda.Id } catch {}" />
+
+    <div class="row">
+        <div class="col-lg-4">
+            <div class="form-group">
+                <label class="control-label">Cliente</label>
+                <select asp-for="ClienteId" class="form-control">
+                    @{
+                        foreach (var item in (List<ClienteModel>)ViewBag.ListaClientes)
+                        {
+                            <option value="@item.Id">@item.Nome</option>
+                        }
+                    }
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label">Vendedor</label>
+                <select asp-for="VendedorId" class="form-control">
+                    @{
+                        foreach (var item in (List<VendedorModel>)ViewBag.ListaVendedores)
+                        {
+                            <option value="@item.Id">@item.Nome</option>
+                        }
+                    }
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-4">
+            <label class="control-label">Produto</label>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-4">
+
+            <select class="form-control" id="sltProduto">
+                @{
+                    foreach (var item in (List<ProdutoModel>)ViewBag.ListaProdutos)
+                    {
+                        <option value="@item.Id">@item.Nome | @item.Preco</option>
+                    }
+                }
+            </select>
+        </div>
+
+        <div class="col-lg-1">
+            <input type="text" class="form-control" value="1" id="txtQuant" />
+        </div>
+        <div class="col-lg-2">
+            <button type="button" class="btn btn-block btn-primary" onclick="AdicProd()">Adicionar</button>
+        </div>
+
+        <br /> <br /> <br />
+
+        <div class="row">
+            <div class="col-lg-10">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <td>Id</td>
+                            <td>Produto</td>
+                            <td>Quant.</td>
+                            <td>Preço</td>
+                            <td>Total Prod.</td>
+                        </tr>
+                    </thead>
+                    <tbody id="ListProd"></tbody>
+                </table>
+
+                <div style="float:left; font-size:22px;">Total: R$</div>
+                <div style="float:left; font-size:22px; margin-left:5px;" id="totalvenda">0.00</div>
+
+                <br /><br />
+
+            </div>
+        </div>
+
+        <input type="hidden" asp-for="TotalVend" id="txtTotalVend" />
+        <textarea style="display:none" asp-for="ListaProdutos" id="ListaProdutos"></textarea>
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-default btn-success">Registrar</button>
+        </div>
+
+        <div class="form-group">
+            <a asp-action="Index">Retorna Lista</a>
+        </div>
+    </div>
+</form>
+
+<script>
+    var itens = new Object();
+    itens.Produtos = new Array();
+
+    var CodProd = document.getElementById("sltProduto");
+    var QuantProd = document.getElementById("txtQuant");
+    var ListProd = document.getElementById("ListProd");
+    var Totalvenda = document.getElementById("totalvenda");
+
+    var ListaProdutos = document.getElementById("ListaProdutos");
+
+    function AdicProd() {
+
+        var descPreco = CodProd.options[CodProd.selectedIndex].text;
+        var arrayPreco = descPreco.split('|');
+        var total = Math.round((arrayPreco[1].replace(",", ".") * QuantProd.value) * 100) / 100;
+        
+
+        itens.Produtos.push({
+            "CodProd": CodProd.value,
+            "DescrProd": arrayPreco[0],
+            "QuantProd": QuantProd.value,
+            "Preco": arrayPreco[1],
+            "Total": total
+        });
+
+        ListaProdutos.innerHTML = JSON.stringify(itens.Produtos);
+
+
+        var Produto = "<tr>" +
+            "<td>" + CodProd.value + "</td>" +
+            "<td>" + arrayPreco[0] + "</td>" +
+            "<td>" + QuantProd.value + "</td>" +
+            "<td> R$" + arrayPreco[1] + "</td>" +
+            "<td> R$" + total + "</td>" +
+            "</tr>";
+
+        ListProd.innerHTML += Produto;
+
+        document.getElementById("txtQuant").value = 1;
+
+        var TotalGeral = Math.round((Totalvenda.innerText * 1 + total) * 100) / 100;
+        Totalvenda.innerHTML = TotalGeral;
+        txtTotalVend.value = TotalGeral.toString().replace(".", ",");
+    }
+</script>
