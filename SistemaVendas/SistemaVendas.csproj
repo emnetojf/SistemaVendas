@@ -27,6 +27,9 @@
     <Content Update="Views\Relatorio\Index.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
+    <Content Update="Views\Shared\_LayoutLogin.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
     <Content Update="Views\Venda\Index.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>

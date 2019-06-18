@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Data;
+﻿using MySql.Data.MySqlClient;
 using SistemaVendas.Uteis;
 using System.ComponentModel.DataAnnotations;
+using System.Data;
 
 
 
@@ -25,10 +22,15 @@ namespace SistemaVendas.Models
 
         public bool ValidarLogin()
         {
-            string strSQL = $"select id, nome from vendedor where email = '{Email}' and senha = '{Senha}'";
+            string strSQL = $"select id, nome from vendedor where email = @email and senha = @senha";
+
+            MySqlCommand command = new MySqlCommand();
+            command.CommandText = strSQL;
+            command.Parameters.AddWithValue("@email", Email);
+            command.Parameters.AddWithValue("@senha", Senha);
 
             DAL objdal = new DAL();
-            DataTable dt = objdal.RetornaDataTable(strSQL);
+            DataTable dt = objdal.RetornaDataTable(command);
 
             if (dt.Rows.Count == 1)
             {

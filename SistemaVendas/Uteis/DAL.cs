@@ -40,6 +40,23 @@ namespace SistemaVendas.Uteis
             return data;
         }
 
+        //Sobreposição de metodo
+        public DataTable RetornaDataTable(MySqlCommand command)
+        {
+            //Cria objeto Datatable
+            DataTable data = new DataTable();
+
+            //Cria objeto command
+            command.Connection = Connection;
+
+            // Cria objeto data adapter
+            MySqlDataAdapter da = new MySqlDataAdapter(command);
+            da.Fill(data);
+
+            return data;
+        }
+
+
         public void ExecutarComandoSQL(String sql)
         {
             //Cria objeto command

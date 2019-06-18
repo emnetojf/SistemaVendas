@@ -48,7 +48,7 @@ namespace SistemaVendas.Models
                             "from vendas " +
                             "inner join cliente c on c.id = vendas.Cliente_id " +
                             "inner join vendedor v on v.id = vendas.Vendedor_id " +
-                            "order by vendas.data, vendas.total ";
+                            "order by vendas.data, vendas.total desc";
 
             DataTable dt = objDAL.RetornaDataTable(strSQL);
 
@@ -134,6 +134,13 @@ namespace SistemaVendas.Models
                         $"{ ListItemVendas[i].Preco.ToString().Replace(",", ".") }) ";
 
                 objdal.ExecutarComandoSQL(strSQL);
+
+                // Baixa o produto no estoque
+                strSQL = $"UPDATE produto SET quant = (quant - " + int.Parse(ListItemVendas[i].QuantProd.ToString())  +
+                         $") WHERE id = { ListItemVendas[i].CodProd.ToString() }" ; 
+                 
+                objdal.ExecutarComandoSQL(strSQL);
+
             }
         }
 
